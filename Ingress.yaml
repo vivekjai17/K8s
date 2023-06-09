@@ -1,0 +1,131 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: advance-website
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - eks-advancewebsite.leapfinance.com
+    secretName: eks-advancewebsite.leapfinance.com-tls
+  ingressClassName: nginx
+  rules:
+  - host: eks-advancewebsite.leapfinance.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: advance-website
+            port:
+              number: 443
+      - path: /refinance
+        pathType: Prefix
+        backend:
+          service:
+            name: finance-frontend
+            port:
+              number: 443
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: financefrontend
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - eks-financefrontend.leapfinance.com
+    secretName: eks-financefrontend.leapfinance.com-tls
+  ingressClassName: nginx
+  rules:
+  - host: eks-financefrontend.leapfinance.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: financefrontend
+            port:
+              number: 443
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: leap-portal
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - eks-leaportal.leapfinance.com
+    secretName: eks-leaportal.leapfinance.com-tls
+  ingressClassName: nginx
+  rules:
+  - host: eks-leaportal.leapfinance.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: leap-portal
+            port:
+              number: 443
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: leap-backend
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - eks-leapbackend.leapfinance.com
+    secretName: eks-leapbackend.leapfinance.com-tls
+  ingressClassName: nginx
+  rules:
+  - host: eks-leapbackend.leapfinance.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: leap-backend
+            port:
+              number: 443
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: advance-backend
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - eks-advancebackend.leapfinance.com
+    secretName: eks-advancebackend.leapfinance.com-tls
+  ingressClassName: nginx
+  rules:
+  - host: eks-advancebackend.leapfinance.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: advance-backend
+            port:
+              number: 443
