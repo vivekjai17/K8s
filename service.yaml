@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: advance-website
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 3000
+  selector:
+    app: advance-website
+  ports:
+  - port: 443
+    targetPort: 3000
+  selector:
+    app: advance-website
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: finance-frontend
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 3002
+  selector:
+    app: finance-frontend
+  ports:
+  - port: 443
+    targetPort: 3002
+  selector:
+    app: finance-frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: leap-portal
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 3001
+  selector:
+    app: leap-portal
+  ports:
+  - port: 443
+    targetPort: 3001
+  selector:
+    app: leap-portal
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: leap-backend
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: leap-backend
+  ports:
+  - port: 443
+    targetPort: 8080
+  selector:
+    app: leap-backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: advance-backend
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8000
+  selector:
+    app: advance-backend
+  ports:
+  - port: 443
+    targetPort: 8000
+  selector:
+    app: advance-backend
+---
