@@ -1,0 +1,124 @@
+#apiVersion: v1
+#kind: Namespace
+#metadata:
+#  name: dockerization
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: advance-website
+  # namespace: dockerization
+  labels:
+    app: advance-website
+spec:
+  selector:
+    matchLabels:
+      app: advance-website
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: advance-website
+    spec:
+      serviceAccountName: ingress-nginx
+      containers:
+      - name: advance-website
+        image: 921015586233.dkr.ecr.ap-south-1.amazonaws.com/dockerization:advance-website
+        ports:
+            - containerPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: finance-frontend
+  #namespace: dockerization
+  labels:
+    app: finance-frontend
+spec:
+  selector:
+    matchLabels:
+      app: finance-frontend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: finance-frontend
+    spec:
+      serviceAccountName: ingress-nginx
+      containers:
+      - name: finance-frontend
+        image: 921015586233.dkr.ecr.ap-south-1.amazonaws.com/dockerization:finance-frontend
+        ports:
+            - containerPort: 3002
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: leap-portal
+  #namespace: dockerization
+  labels:
+    app: leap-portal
+spec:
+  selector:
+    matchLabels:
+      app: leap-portal
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: leap-portal
+    spec:
+      serviceAccountName: ingress-nginx
+      containers:
+      - name: leap-portal
+        image: 921015586233.dkr.ecr.ap-south-1.amazonaws.com/dockerization:leap-portal
+        ports:
+            - containerPort: 3001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: leap-backend
+  #namespace: dockerization
+  labels:
+    app: leap-backend
+spec:
+  selector:
+    matchLabels:
+      app: leap-backend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: leap-backend
+    spec:
+      serviceAccountName: ingress-nginx
+      containers:
+      - name: leap-backend
+        image: 921015586233.dkr.ecr.ap-south-1.amazonaws.com/dockerization:leap-backend
+        ports:
+            - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: advance-backend
+  #namespace: dockerization
+  labels:
+    app: advance-backend
+spec:
+  selector:
+    matchLabels:
+      app: advance-backend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: advance-backend
+    spec:
+      serviceAccountName: ingress-nginx
+      containers:
+      - name: advance-backend
+        image: 921015586233.dkr.ecr.ap-south-1.amazonaws.com/dockerization:advance-backend
+        ports:
+            - containerPort: 8000
